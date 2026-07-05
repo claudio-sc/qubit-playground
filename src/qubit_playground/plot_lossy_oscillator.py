@@ -1,7 +1,7 @@
-"""Generate the photon-number-decay figure for the lossy harmonic oscillator.
+"""Generate the photon-number-decay plot for the lossy harmonic oscillator.
 
-Run with ``uv run python -m qubit_playground.plot_lossy_oscillator``. Produces
-``figures/lossy_oscillator_decay.png`` comparing the dynamiqs simulation against
+Run with uv run python -m qubit_playground.plot_lossy_oscillator. Produces
+figures/lossy_oscillator_decay.png comparing the dynamiqs simulation against
 the analytic exponential decay, and prints the maximum absolute error.
 """
 
@@ -22,7 +22,7 @@ def plot_decay(result: DecayResult, output_path: Path) -> None:
     """Plot simulated vs. analytic photon-number decay and save to disk.
 
     Args:
-        result: A simulation outcome produced by ``simulate_photon_decay``.
+        result: A simulation outcome produced by the simulate_photon_decay function.
         output_path: File path where the PNG figure is written.
     """
     fig, ax = plt.subplots(figsize=(7.0, 4.5))
