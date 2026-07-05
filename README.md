@@ -1,12 +1,11 @@
 # qubit-playground
 
-Hands-on studies of differentiable open-quantum-system simulation with
-[dynamiqs](https://github.com/dynamiqs/dynamiqs)/[JAX](https://github.com/jax-ml/jax),
-motivated by superconducting cat-qubit platforms.
+Open-quantum-system simulation playground using
+[dynamiqs](https://github.com/dynamiqs/dynamiqs)/[JAX](https://github.com/jax-ml/jax).
+The repository contains a simple example of a cat qubit simulation, and its meant to
+represent a clean, self-contained, and friendly introduction.
 
-Scientific code, treated as software: typed, tested, linted, and CI-checked.
-
-## First result — lossy harmonic oscillator, validated against theory
+## Hello cat qubit — lossy harmonic oscillator
 
 A single cavity mode with Hamiltonian `H = ω a†a` under single-photon loss
 (jump operator `√κ a`) obeys the Lindblad master equation. Starting from a
