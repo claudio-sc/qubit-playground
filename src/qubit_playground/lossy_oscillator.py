@@ -1,15 +1,17 @@
 """Lossy harmonic oscillator: the canonical first open-quantum-system example.
 
-A single cavity mode with Hamiltonian ``H = omega * a.dag() @ a`` under
-single-photon loss (jump operator ``sqrt(kappa) * a``) obeys the Lindblad master
-equation. Starting from a coherent state ``|alpha_0>`` the mean photon number
+A single cavity mode with Hamiltonian H = omega * a.dag() @ a under
+single-photon loss (jump operator is sqrt(kappa) * a) obeys the Lindblad master
+equation. Starting from a coherent state alpha_0 the mean photon number
 decays purely exponentially,
 
-    <a.dag() a>(t) = |alpha_0|**2 * exp(-kappa * t),
+    < a.dag() a > (t) = |alpha_0|**2 * exp(-kappa * t),
 
 because the Hamiltonian commutes with the number operator and only the
-dissipator removes photons. This module simulates that decay with dynamiqs and
-exposes the analytic curve alongside it so the two can be compared in a test.
+dissipator removes photons.
+
+This module simulates the decay with dynamiqs and exposes the analytic curve alongside
+it so the two can be compared in a test.
 """
 
 from __future__ import annotations
@@ -51,14 +53,14 @@ def simulate_photon_decay(
 
     Args:
         dim: Fock-space truncation (number of basis states).
-        omega: Oscillator angular frequency (coefficient of ``a.dag() @ a``).
-        kappa: Single-photon loss rate; the jump operator is ``sqrt(kappa) * a``.
-        alpha_0: Amplitude of the initial coherent state ``|alpha_0>``.
+        omega: Oscillator angular frequency.
+        kappa: Single-photon loss rate.
+        alpha_0: Amplitude of the initial coherent state.
         t_final: Final simulation time.
-        n_times: Number of save points on ``[0, t_final]``.
+        n_times: Number of save points on [0, t_final].
 
     Returns:
-        A :class:`DecayResult` holding the save times, the simulated mean photon
+        A DecayResult instance holding the save times, the simulated mean photon
         number, the analytic reference curve, and the loss rate.
     """
     a = dq.destroy(dim)
@@ -90,7 +92,7 @@ def max_absolute_error(result: DecayResult) -> float:
     """Return the largest absolute deviation from the analytic decay curve.
 
     Args:
-        result: A simulation outcome produced by :func:`simulate_photon_decay`.
+        result: A simulation outcome produced by the simulate_photon_decay function.
 
     Returns:
         The maximum absolute difference between the simulated and analytic mean
