@@ -1,7 +1,10 @@
 [project]
 name = "qubit-playground"
 version = "0.1.0"
-description = "Add your description here"
+authors = [
+    {name="Claudio Silvestre Castro", email="claudio.silvestre.castro@gmail.com"},
+]
+description = "Playground for simulating open quantum systems using dinamiqs and JAX."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
