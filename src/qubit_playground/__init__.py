@@ -1,2 +1,1 @@
-def main() -> None:
-    print("Hello from qubit-playground!")
+"""Playground for open-quantum-system simulation with dynamiqs and JAX."""

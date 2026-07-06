@@ -55,7 +55,8 @@ def simulate_photon_decay(
         dim: Fock-space truncation (number of basis states).
         omega: Oscillator angular frequency.
         kappa: Single-photon loss rate.
-        alpha_0: Amplitude of the initial coherent state.
+        alpha_0: Amplitude of the initial coherent state. Assumed real; the
+            analytic reference uses ``alpha_0**2``.
         t_final: Final simulation time.
         n_times: Number of save points on [0, t_final].
 

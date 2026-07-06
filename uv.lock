@@ -832,7 +832,6 @@ source = { editable = "." }
 dependencies = [
     { name = "dynamiqs" },
     { name = "matplotlib" },
-    { name = "qutip" },
 ]
 
 [package.dev-dependencies]
@@ -845,7 +844,6 @@ dev = [
 requires-dist = [
     { name = "dynamiqs", specifier = ">=0.3.4" },
     { name = "matplotlib", specifier = ">=3.11.0" },
-    { name = "qutip", specifier = ">=5.3.0" },
 ]
 
 [package.metadata.requires-dev]
