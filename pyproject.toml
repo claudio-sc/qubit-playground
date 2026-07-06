@@ -21,3 +21,23 @@ dev = [
     "pytest>=9.1.1",
     "ruff>=0.15.20",
 ]
+
+[tool.ruff]
+line-length = 88
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "D", "N", "B", "I", "C4", "A"]
+ignore = [
+    "D203", "D204", "D213", "D215", "D400", "D401",
+    "D404", "D406", "D407", "D408", "D409", "D413",
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["D"]  # test names are the documentation
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
