@@ -17,7 +17,7 @@ coherent state `|α₀⟩`, the mean photon number decays purely exponentially:
 ⟨a†a⟩(t) = |α₀|² · exp(−κ·t)
 ```
 
-![Photon-number decay](figures/lossy_oscillator_decay.png)
+![Photon-number decay](https://raw.githubusercontent.com/claudio-sc/qubit-playground/v0.1.0/figures/lossy_oscillator_decay.png)
 
 The dynamiqs simulation (`dq.mesolve`) reproduces this to within a maximum
 absolute error of ~5e-6 over the full time window. This agreement is enforced
