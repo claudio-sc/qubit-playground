@@ -1,0 +1,29 @@
+[scenario]
+name = "circle_weak"
+description = "200 nm, n=3.5 circular cylinder; emitter 60 nm off the surface"
+created = "2026-07-09"
+pysie2d_version = "0.2.1"       # version current when this file was authored
+provenance = "spec Step 4a; broad smooth Mie feature near 535 nm (relative LDOS peaks ~1.34), clear of the sharp WGM at ~700 nm used by circle_wgm"
+
+[geometry]                       # passed to Geometry.gielis; m=0 gives a circle
+rad = 200.0
+n_pts = 256
+m = 0
+
+[material]                       # passed to Material
+n_core = 3.5
+n_clad = 1.0
+pol = 2
+
+[emitter]                        # line-dipole / quantum emitter position (nm)
+x_s = 0.0
+z_s = 260.0
+
+[sweep]                          # wavelength window for compute_spectrum
+lambda_min_nm = 520.0
+lambda_max_nm = 560.0
+n_points = 25
+
+# [resonance]                    # OPTIONAL table — only resonant scenarios
+# lambda_peak_nm = 0.0           # where the LDOS peak was observed
+# ldos_peak_min = 0.0            # contract: max LDOS in window must exceed this
