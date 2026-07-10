@@ -11,6 +11,9 @@ requires-python = ">=3.12"
 dependencies = [
     "dynamiqs>=0.3.4",
     "matplotlib>=3.11.0",
+    "numpy>=1.26",
+    "pysie2d>=0.2.1",
+    "scipy>=1.11",
 ]
 
 [build-system]

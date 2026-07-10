@@ -798,6 +798,19 @@ wheels = [
 ]
 
 [[package]]
+name = "pysie2d"
+version = "0.2.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+    { name = "scipy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/ac/29/a467b51bd453aa513307ff94caa1cf0f4e1add5331da3cb39ab1d1587b71/pysie2d-0.2.1.tar.gz", hash = "sha256:433461a7010f69b2f53c21ef32fb7413e94f996c83286f7a992877996f27171c", size = 20110, upload-time = "2026-07-09T13:38:37.806Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ba/e0/9b4c604791780ea06593c58d9b0088c4b1f8fb7fc16c029f89cb316fa5f6/pysie2d-0.2.1-py3-none-any.whl", hash = "sha256:50af8e23b2593843dc2ef97f11ef378d2ede030a68900338f470e3060b701f7a", size = 24351, upload-time = "2026-07-09T13:38:36.985Z" },
+]
+
+[[package]]
 name = "pytest"
 version = "9.1.1"
 source = { registry = "https://pypi.org/simple" }
@@ -827,11 +840,14 @@ wheels = [
 
 [[package]]
 name = "qubit-playground"
-version = "0.1.0"
+version = "0.1.1"
 source = { editable = "." }
 dependencies = [
     { name = "dynamiqs" },
     { name = "matplotlib" },
+    { name = "numpy" },
+    { name = "pysie2d" },
+    { name = "scipy" },
 ]
 
 [package.dev-dependencies]
@@ -844,6 +860,9 @@ dev = [
 requires-dist = [
     { name = "dynamiqs", specifier = ">=0.3.4" },
     { name = "matplotlib", specifier = ">=3.11.0" },
+    { name = "numpy", specifier = ">=1.26" },
+    { name = "pysie2d", specifier = ">=0.2.1" },
+    { name = "scipy", specifier = ">=1.11" },
 ]
 
 [package.metadata.requires-dev]

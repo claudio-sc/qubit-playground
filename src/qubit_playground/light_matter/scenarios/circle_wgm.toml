@@ -1,0 +1,29 @@
+[scenario]
+name = "circle_wgm"
+description = "200 nm, n=3.5 circular cylinder; isolated whispering-gallery mode near 700.75 nm; emitter 60 nm off the surface"
+created = "2026-07-09"
+pysie2d_version = "0.2.1"
+provenance = "Step 6a resonance hunt: swept relative_ldos vs lambda 500-750 nm at 1 nm steps (emitter x_s=0, z_s=260 nm, 60 nm off the surface); the only isolated peak above LDOS 1.5 in that range is at ~700.8 nm (all other wavelengths give LDOS < 1.1, so it is >5 linewidths from any neighbour). Refined by Lorentzian fit of self_green over +-4*gamma_m: omega_m=2.68805 rad/fs, gamma_m=0.004651 rad/fs (Q~578, gamma_m/omega_m=1.7e-3), LDOS peak ~8.3. Cross-check: analytic Mie |b_n|^2 (pol=2 <-> b_n) at size parameter x=2*pi*rad/lambda=1.793 is maximal near n=1 (|b_1|^2=0.98) with a second lobe at n=4 (0.84), consistent with a whispering-gallery resonance. ldos_peak_min set to ~half the observed peak so it survives numerical drift while still failing loudly if the resonance leaves the window."
+
+[geometry]
+rad = 200.0
+n_pts = 256
+m = 0
+
+[material]
+n_core = 3.5
+n_clad = 1.0
+pol = 2
+
+[emitter]
+x_s = 0.0
+z_s = 260.0
+
+[sweep]                          # +-4*gamma_m around the found peak (nm)
+lambda_min_nm = 695.93
+lambda_max_nm = 705.63
+n_points = 60
+
+[resonance]
+lambda_peak_nm = 700.75          # observed LDOS peak
+ldos_peak_min = 4.0              # ~half the observed peak LDOS (~8.3)
