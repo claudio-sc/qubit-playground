@@ -2,17 +2,15 @@
 
 ![ci](https://github.com/claudio-sc/qubit-playground/actions/workflows/ci.yml/badge.svg)
 
-Hands-on studies of differentiable open-quantum-system simulation with
-[dynamiqs](https://github.com/dynamiqs/dynamiqs)/[JAX](https://github.com/jax-ml/jax),
-motivated by superconducting cat-qubit platforms. Current content: a validated
-lossy harmonic oscillator; see [Roadmap](#roadmap).
+Hands-on studies of differentiable simulations of open quantum systems with
+[dynamiqs](https://github.com/dynamiqs/dynamiqs)/[JAX](https://github.com/jax-ml/jax).
+Current content: a validated lossy harmonic oscillator; see [Roadmap](#roadmap).
 
-## The physics example — lossy harmonic oscillator
+## The lossy harmonic oscillator
 
-A single cavity mode with Hamiltonian `H = ω a†a` under single-photon loss
-(jump operator `√κ a`) obeys the Lindblad master equation. Starting from a
-coherent state `|α₀⟩`, the mean photon number decays purely exponentially:
-
+Single-mode cavity Hamiltonian `H = ω a†a` under single-photon loss `√κ a` 
+that obeys the Lindblad master equation. For a
+coherent state `|α₀⟩`, the mean photon number decays purely exponentially a
 ```
 ⟨a†a⟩(t) = |α₀|² · exp(−κ·t)
 ```
@@ -20,27 +18,30 @@ coherent state `|α₀⟩`, the mean photon number decays purely exponentially:
 ![Photon-number decay](https://raw.githubusercontent.com/claudio-sc/qubit-playground/v0.1.0/figures/lossy_oscillator_decay.png)
 
 The dynamiqs simulation (`dq.mesolve`) reproduces this to within a maximum
-absolute error of ~5e-6 over the full time window. This agreement is enforced
-by the test suite in CI.
+absolute error of ~5e-6 over the full time window. 
+Numerical agreement is enforced by the CI test suite.
 
 ## Light–matter interaction: coupling a Maxwell solver to the master equation
 
-The `qubit_playground.light_matter` subpackage implements the physics of
-Bouchet & Carminati (2019): a classical 2-D boundary-integral Maxwell solver
-([pysie2d](https://github.com/claudio-sc/pysie2d)) computes the environment
-response — the self-Green function `S(r_s, r_s, ω)` of a line-dipole emitter
-near a dielectric structure — and that classical output drives quantum
-master-equation simulations in dynamiqs. Data flows strictly one way:
-pysie2d (NumPy) → plain floats/arrays → dynamiqs (JAX).
+The light_matter subpackage evolves the Lindblad master equation and uses pysie2d(https://github.com/claudio-sc/pysie2d), a fast Maxwell solver to provide classical driving fields in inhomogeneous environments.
 
-The one genuinely new formula is the 2-D bridge normalization. pysie2d's
-dimensionless `S` has vacuum `Im g₀(r→r) = 1/4`; preserving vacuum consistency
+Theoretical details of the semiclassical model can be found in the tutorial by 
+Bouchet & Carminati (2019).
+
+The self-term of the 2D **dressed propagator** `S(r_s, r_s, ω)` is 
+calculated near a dielectric structure. This represents a classical nanowire emitter, 
+and is the classical output that drives quantum master-equation simulations in dynamiqs. 
+
+**pysie2d**'s dimensionless `S` has vacuum `Im g₀(r→r) = 1/4`. Preserving vacuum consistency
 gives the physical response `S̃(ω) = 2·Γ₀·S(ω)`, from which the paper's §4 carries
 over verbatim. This is pinned by an exact identity (`rtol=1e-12` in CI):
 
 ```
 decay_rate / Γ₀  ==  1 + 4·Im S  ==  pysie2d.relative_ldos
 ```
+
+Data flows strictly one way:
+pysie2d (NumPy) → plain floats/arrays → dynamiqs (JAX).
 
 **Three results, three figures.**
 
@@ -68,16 +69,18 @@ decay_rate / Γ₀  ==  1 + 4·Im S  ==  pysie2d.relative_ldos
 
    ![Vacuum Rabi](figures/vacuum_rabi.png)
 
-**Scenario layer.** The classical solver is never configured from constants in
-library code. Every geometry/material/emitter/window lives in a declarative,
-provenance-carrying TOML scenario shipped inside the package
-(`light_matter/scenarios/*.toml`), strictly parsed and validated, and a
-contract test runs every shipped scenario to check it still delivers what it
-advertises. One classical sweep (minutes) then serves an unlimited number of
-quantum experiments (milliseconds each) — which is what makes the Γ₀-sweep
-anticrossing figure nearly free.
+**Scenario layer.** There are no hard-coded parameters in the package. Instead, a
+declarative TOML configuration strategy is adopted. 
+Geometry, material, emitter, and time window parameters live in toml files.
+This allows parsing and validation. 
+Test runs of each scenario (physical system configuration) enforce numerical matches to
+predefined references. 
+One classical sweep takes minutes in single-core execution.
+The results then can serve an unlimited number of
+quantum experiments (milliseconds each), and gives the Γ₀-sweep
+anticrossing calculation nearly for free.
 
-Regenerate the three figures:
+In order to regenerate the three figures:
 
 ```bash
 uv run python -m qubit_playground.light_matter.plot_bloch
@@ -120,7 +123,6 @@ figures/                    # generated plots
 ## Roadmap
 
 - Fock-space and cat-state studies.
-- Notes on solver internals (Diffrax).
 - Semiclassical light–matter module driven by an external 2-D EM solver — **done**
   (optical Bloch, Purcell, strong coupling; see above).
 - Two emitters through the environment: cross Green function G₁₂, super- and
@@ -134,4 +136,4 @@ figures/                    # generated plots
   environments: a scattering approach: tutorial," *J. Opt. Soc. Am. A* **36**,
   186 (2019). DOI [10.1364/JOSAA.36.000186](https://doi.org/10.1364/JOSAA.36.000186).
 - [pysie2d](https://github.com/claudio-sc/pysie2d) — the 2-D boundary-integral
-  scattering solver providing the classical environment response.
+  scattering solver providing the classical electromagnetic environment response.
