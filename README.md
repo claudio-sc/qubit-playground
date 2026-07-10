@@ -23,25 +23,22 @@ Numerical agreement is enforced by the CI test suite.
 
 ## Light–matter interaction: coupling a Maxwell solver to the master equation
 
-The light_matter subpackage evolves the Lindblad master equation and uses pysie2d(https://github.com/claudio-sc/pysie2d), a fast Maxwell solver to provide classical driving fields in inhomogeneous environments.
+The light_matter subpackage evolves the Lindblad master equation and uses pysie2d (https://github.com/claudio-sc/pysie2d), a fast Maxwell solver, to provide classical driving fields in inhomogeneous environments.
+
+Data flows strictly one way:
+pysie2d (NumPy) → plain floats/arrays → dynamiqs (JAX).
 
 Theoretical details of the semiclassical model can be found in the tutorial by 
 Bouchet & Carminati (2019).
 
 The self-term of the 2D **dressed propagator** `S(r_s, r_s, ω)` is 
-calculated near a dielectric structure. This represents a classical nanowire emitter, 
+calculated near a dielectric structure. This simulates a classical nanowire emitter
+interacting with a inhomogeneous background, 
 and is the classical output that drives quantum master-equation simulations in dynamiqs. 
-
-**pysie2d**'s dimensionless `S` has vacuum `Im g₀(r→r) = 1/4`. Preserving vacuum consistency
-gives the physical response `S̃(ω) = 2·Γ₀·S(ω)`, from which the paper's §4 carries
-over verbatim. This is pinned by an exact identity (`rtol=1e-12` in CI):
 
 ```
 decay_rate / Γ₀  ==  1 + 4·Im S  ==  pysie2d.relative_ldos
 ```
-
-Data flows strictly one way:
-pysie2d (NumPy) → plain floats/arrays → dynamiqs (JAX).
 
 **Three results, three figures.**
 
@@ -52,7 +49,7 @@ pysie2d (NumPy) → plain floats/arrays → dynamiqs (JAX).
    ![OBE steady state](figures/obe_steady_state.png)
 
 2. **Weak coupling / Purcell effect** — the emitter's decay rate and frequency
-   shift modified by a nearby cylinder. *Honesty bar:* here the quantum
+   shift modified by a nearby cylinder. Here the quantum
    simulation **consumes** the classically computed rates; the physics content
    is the bridge normalization, not an independent prediction.
 
