@@ -1,6 +1,6 @@
 [project]
 name = "qubit-playground"
-version = "0.1.1"
+version = "0.2.0"
 authors = [
     {name="Claudio Silvestre Castro", email="claudio.silvestre.castro@gmail.com"},
 ]
